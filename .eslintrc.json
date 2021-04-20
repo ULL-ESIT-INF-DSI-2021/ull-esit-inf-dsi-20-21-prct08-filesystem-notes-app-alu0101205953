@@ -15,5 +15,16 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "quotes": "off",
+        "require-jsdoc": "off",
+        "prefer-const": "off",
+        "eol-last": "off",
+        "indent": "off",
+        "space-before-blocks": "off",
+        "keyword-spacing": "off",
+        "max-len": "off",
+        "valid-jsdoc": "off",
+        "brace-style": "off",
+        "new-cap": "off"
     }
 }

@@ -14,7 +14,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.2.16",
-    "@types/inquirer": "^7.3.1",
     "@types/lowdb": "^1.0.9",
     "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.41",
@@ -25,8 +24,6 @@
     "chalk": "^4.1.0",
     "eslint": "^7.24.0",
     "eslint-config-google": "^0.14.0",
-    "inquirer": "^6.3.1",
-    "lowdb": "^1.0.0",
     "mocha": "^8.3.2",
     "nyc": "^15.1.0",
     "ts-node": "^9.1.1",
