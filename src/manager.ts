@@ -25,9 +25,15 @@ export class manager implements intManager {
         }
     }
 
-    modify(user: string, title: string, newTitle: string = '', newBody: string = '', newColor: string = ''): void {
+    modify(user: string, title: string, newTitle: string, newBody: string, newColor: string): void {
         if(fs.existsSync(`./${user}/${title}.json`) == true) {
-            fs. (`./${user}/${title}.json`);
+            let buffer = fs.readFileSync(`./${user}/${title}.json`);
+            let obj = JSON.parse(buffer.toString());
+            let note: Notes = new Notes(obj.title, obj.body, obj.color);
+            if(newTitle !== '') note.setTitle(newTitle);
+            if(newBody !== '') note.setBody(newBody);
+            if(newColor !== '') note.setColor(newColor);
+            fs.writeFileSync(`./${user}/${title}.json`, note.toJSON());
             console.log(chalk.green('Note successfully modified!'));
         } else {
             console.log(chalk.red('This note doesn\'t exist!'));
@@ -35,7 +41,7 @@ export class manager implements intManager {
     }
 
     list(user: string): void {
-        console.log("\nCurrent filenames:");
+        console.log(chalk.magenta.underline("\nCurrent filenames:"));
         fs.readdirSync(`./${user}`).forEach((file) => {
             let buffer = fs.readFileSync(`./${user}/${file}`);
             let obj = JSON.parse(buffer.toString());

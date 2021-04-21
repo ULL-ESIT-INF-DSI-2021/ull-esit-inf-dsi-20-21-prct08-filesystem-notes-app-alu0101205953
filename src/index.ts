@@ -1,5 +1,6 @@
 import * as yargs from 'yargs';
 import {manager} from "./manager";
+import * as chalk from 'chalk';
 
 let noteManager = new manager();
 
@@ -31,6 +32,8 @@ yargs.command({
   handler(argv) {
     if (typeof argv.title === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string' && typeof argv.user === 'string') {
       noteManager.add(argv.title, argv.body, argv.color, argv.user);
+    } else {
+      console.log(chalk.bgRed("Argument missing"));
     }
   },
 });
@@ -53,6 +56,8 @@ yargs.command({
   handler(argv) {
     if (typeof argv.title === 'string' && typeof argv.user === 'string') {
       noteManager.remove(argv.user, argv.title);
+    } else {
+      console.log(chalk.bgRed("Argument missing"));
     }
   },
 });
@@ -88,20 +93,26 @@ yargs.command({
     },
   },
   handler(argv) {
-    if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.newTitle === 'string' && typeof argv.newBody === 'string' && typeof argv.newColor === 'string') {
-      noteManager.modify(argv.user, argv.title, argv.newTitle, argv.newBody, argv.newColor);
-    } else if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.newTitle === 'undefined' && typeof argv.newBody === 'string' && typeof argv.newColor === 'string') {
+    if (typeof argv.title === 'string' && typeof argv.user === 'string') {
+      if(typeof argv.newTitle === 'string' && typeof argv.newBody === 'string' && typeof argv.newColor === 'string') {
+        noteManager.modify(argv.user, argv.title, argv.newTitle, argv.newBody, argv.newColor);
+      } else if(typeof argv.newTitle === 'undefined' && typeof argv.newBody === 'string' && typeof argv.newColor === 'string') {
         noteManager.modify(argv.user, argv.title, '', argv.newBody, argv.newColor);
-    } else if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.newTitle === 'string' && typeof argv.newBody === 'undefined' && typeof argv.newColor === 'string') {
-        noteManager.modify(argv.user, argv.title, argv.newTitle, '', argv.newColor);
-    } else if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.newTitle === 'string' && typeof argv.newBody === 'undefined' && typeof argv.newColor === 'string') {
-        noteManager.modify(argv.user, argv.title, argv.newTitle, argv.newBody, '');
-    } else if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.newTitle === 'undefined' && typeof argv.newBody === 'undefined' && typeof argv.newColor === 'string') {
+      } else if(typeof argv.newTitle === 'undefined' && typeof argv.newBody === 'undefined' && typeof argv.newColor === 'string') {
         noteManager.modify(argv.user, argv.title, '', '', argv.newColor);
-    } else if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.newTitle === 'undefined' && typeof argv.newBody === 'string' && typeof argv.newColor === 'undefined') {
+      } else if(typeof argv.newTitle === 'undefined' && typeof argv.newBody === 'string' && typeof argv.newColor === 'undefined') {
         noteManager.modify(argv.user, argv.title, '', argv.newBody, '');
-    } else if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.newTitle === 'string' && typeof argv.newBody === 'undefined' && typeof argv.newColor === 'undefined') {
+      } else if(typeof argv.newTitle === 'string' && typeof argv.newBody === 'undefined' && typeof argv.newColor === 'undefined') {
         noteManager.modify(argv.user, argv.title, argv.newTitle, '', '');
+      } else if(typeof argv.newTitle === 'string' && typeof argv.newBody === 'undefined' && typeof argv.newColor === 'string') {
+        noteManager.modify(argv.user, argv.title, argv.newTitle, '', argv.newColor);
+      } else if(typeof argv.newTitle === 'string' && typeof argv.newBody === 'string' && typeof argv.newColor === 'undefined') {
+        noteManager.modify(argv.user, argv.title, argv.newTitle, argv.newBody, '');
+      } else {
+        console.log(chalk.bgRed("Not changing anything..."));
+      }
+    } else {
+      console.log(chalk.bgRed("Argument missing"));
     }
   },
 });
@@ -119,6 +130,8 @@ yargs.command({
   handler(argv) {
     if (typeof argv.user === 'string') {
       noteManager.list(argv.user);
+    } else {
+      console.log(chalk.bgRed("Argument missing"));
     }
   },
 });
@@ -141,6 +154,8 @@ yargs.command({
   handler(argv) {
     if (typeof argv.title === 'string' && typeof argv.user === 'string') {
       noteManager.read(argv.user, argv.title);
+    } else {
+      console.log(chalk.bgRed("Argument missing"));
     }
   },
 });
