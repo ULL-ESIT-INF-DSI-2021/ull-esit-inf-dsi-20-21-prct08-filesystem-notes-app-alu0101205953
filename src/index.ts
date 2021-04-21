@@ -1,8 +1,8 @@
 import * as yargs from 'yargs';
-import {manager} from "./manager";
+import {Manager} from "./manager";
 import * as chalk from 'chalk';
 
-let noteManager = new manager();
+let noteManager = new Manager();
 
 yargs.command({
   command: 'add',
